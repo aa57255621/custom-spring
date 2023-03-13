@@ -1,17 +1,41 @@
+import cn.hutool.core.io.IoUtil;
 import com.lp.springframework.beans.factory.config.BeanDefinition;
 import com.lp.springframework.beans.factory.exception.BeansException;
 import com.lp.springframework.beans.factory.support.DefaultListableBeanFactory;
+import com.lp.springframework.core.io.DefaultResourceLoader;
+import com.lp.springframework.core.io.Resource;
 import com.lp.springframework.test.bean.UserService;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.nio.charset.Charset;
 
 /**
  * @author liupeng1
  */
 public class ApiTest {
+
+    private DefaultResourceLoader resourceLoader;
+
+    @Before
+    public void init(){
+        resourceLoader = new DefaultResourceLoader();
+    }
+
+    @Test
+    public void test_classPath() throws IOException {
+        Resource resource = resourceLoader.getResource("classpath:important.properties");
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.read(inputStream, Charset.defaultCharset());
+        System.out.println(content);
+    }
+
+
 
     @Test
     public void test_BeanFactory() throws BeansException {

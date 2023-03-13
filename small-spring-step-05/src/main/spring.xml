@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <bean id = "userDao" class = "com.lp.springframework.test.bean.UserDao"></bean>
+    <bean id = "userService" class = "com.lp.springframework.test.bean.UserService">
+        <property name = "uId" value = "10001"></property>
+        <property name = "userDao" ref = "userDao"></property>
+    </bean>
+</beans>
